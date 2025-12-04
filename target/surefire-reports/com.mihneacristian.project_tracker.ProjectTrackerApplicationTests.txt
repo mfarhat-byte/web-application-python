@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.mihneacristian.project_tracker.ProjectTrackerApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.966 s - in com.mihneacristian.project_tracker.ProjectTrackerApplicationTests
