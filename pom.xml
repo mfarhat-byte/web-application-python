@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
          https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -24,7 +24,8 @@
     </properties>
 
     <dependencies>
-        <!-- (unchanged dependencies) -->
+
+        <!-- Spring Boot + DB -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -47,12 +48,14 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>2.3.2.RELEASE</version>
         </dependency>
 
+        <!-- DevTools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -60,6 +63,7 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -72,6 +76,7 @@
             </exclusions>
         </dependency>
 
+        <!-- Frontend libs -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
@@ -89,12 +94,13 @@
             <artifactId>axios</artifactId>
             <version>0.19.2</version>
         </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
 
-            <!-- Spring Boot Maven Plugin -->
+            <!-- Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -116,14 +122,14 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ JaCoCo plugin (added) -->
+            <!-- JaCoCo: Coverage + Report -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.11</version>
 
                 <executions>
-                    <!-- Attach JaCoCo to test phase -->
+                    <!-- Attach JaCoCo agent -->
                     <execution>
                         <id>prepare-agent</id>
                         <goals>
@@ -131,7 +137,7 @@
                         </goals>
                     </execution>
 
-                    <!-- Generate HTML report after tests -->
+                    <!-- Generate HTML report -->
                     <execution>
                         <id>report</id>
                         <phase>test</phase>
@@ -139,7 +145,33 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
+
                 </executions>
+            </plugin>
+
+            <!-- Automatically open JaCoCo report in browser (Windows) -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+
+                <executions>
+                    <execution>
+                        <id>open-jacoco-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>rundll32</executable>
+                            <arguments>
+                                <argument>url.dll,FileProtocolHandler</argument>
+                                <argument>${project.build.directory}/site/jacoco/index.html</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+
             </plugin>
 
         </plugins>
