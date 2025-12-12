@@ -1,4 +1,3 @@
-// ========== ItemBuilder.java ==========
 package jmlcore;
 
 public class ItemBuilder {

@@ -1,4 +1,3 @@
-// ========== SimpleItemDTO.java ==========
 package jmlcore;
 
 public class SimpleItemDTO {
