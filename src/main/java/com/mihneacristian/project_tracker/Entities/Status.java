@@ -10,22 +10,22 @@ public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "status_id")
-    Integer statusId;
+    private Integer statusId;
 
     @Column(name = "status_name", nullable = false)
-    String statusName;
+    private String statusName;
 
     @OneToMany(mappedBy = "statusOfProject", fetch = FetchType.EAGER)
-    List<Project> projects;
+    private List<Project> projects;
 
-    //@OneToMany(mappedBy = "statusOfItem", fetch = FetchType.EAGER)
-    //List<Item> items;
+    // NOTE: This relation is disabled but must not use //@ which breaks OpenJML
+    // @OneToMany(mappedBy = "statusOfItem", fetch = FetchType.EAGER)
+    // private List<Item> items;
 
     public Status() {
     }
 
     public Status(String statusName) {
-
         this.statusName = statusName;
     }
 
