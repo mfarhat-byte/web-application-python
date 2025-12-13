@@ -31,6 +31,9 @@
 
         <!-- PiTest (Compatible with JUnit 5.5.2) -->
         <pitest.version>1.7.3</pitest.version>
+
+        <!-- JMH for microbenchmarks -->
+        <jmh.version>1.36</jmh.version>
     </properties>
 
     <!-- ================= DEPENDENCIES ================= -->
@@ -118,6 +121,21 @@
             <groupId>org.webjars.npm</groupId>
             <artifactId>axios</artifactId>
             <version>0.19.2</version>
+        </dependency>
+
+        <!-- ================= JMH BENCHMARKS ================= -->
+
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>${jmh.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>${jmh.version}</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
@@ -256,6 +274,31 @@
                     <useClasspathJar>false</useClasspathJar>
 
                 </configuration>
+            </plugin>
+
+            <!-- ================= EXEC PLUGIN FOR JMH ================= -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>run-benchmarks</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <classpathScope>test</classpathScope>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath/>
+                                <argument>benchmarks.BenchmarkRunner</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
